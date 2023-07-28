@@ -11,7 +11,7 @@ An automatic OCR (Optical Character Recognition) script for newly added PDF file
 Install prerequisites on Ubuntu:
 
 ```bash
-sudo apt-get -y install ocrmypdf inotify-tools
+sudo apt-get -y install ocrmypdf inotify-tools tesseract-ocr-deu
 ```
 
 ## Setup
