@@ -10,28 +10,28 @@ An automatic OCR (Optical Character Recognition) script for newly added PDF file
 
 Install prerequisites on Ubuntu:
 
-\```bash
+```bash
 sudo apt-get -y install ocrmypdf inotify-tools
-\```
+```
 
 ## Setup
 
 1. Clone the repository and move files:
 
-\```bash
+```bash
 git clone https://github.com/username/repo.git
 sudo mv repo/scanocr.sh /usr/local/bin
 sudo chmod +x /usr/local/bin/scanocr.sh
 sudo mv repo/scanocr.service /etc/systemd/system/
-\```
+```
 
 2. Setup the service:
 
-\```bash
+```bash
 sudo systemctl daemon-reload
 sudo systemctl enable scanocr.service
 sudo systemctl start scanocr.service
-\```
+```
 
 ## Operation
 
