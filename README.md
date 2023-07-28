@@ -1,72 +1,42 @@
 # ScanOCR Script
 
-This bash script is designed to monitor specific directories and automatically perform OCR (Optical Character Recognition) on newly added PDF files. The script utilizes [OCRmyPDF](https://ocrmypdf.readthedocs.io/en/latest/) for the OCR process, and [inotify-tools](https://github.com/inotify-tools/inotify-tools/wiki) to monitor the directories.
+An automatic OCR (Optical Character Recognition) script for newly added PDF files. Utilizes [OCRmyPDF](https://ocrmypdf.readthedocs.io/en/latest/) and [inotify-tools](https://github.com/inotify-tools/inotify-tools/wiki).
 
 ## Prerequisites
 
-- A Linux environment (e.g., Ubuntu)
-- [OCRmyPDF](https://ocrmypdf.readthedocs.io/en/latest/installation.html)
-- [inotify-tools](https://github.com/inotify-tools/inotify-tools/wiki#downloading-and-installation)
+- Linux (e.g., Ubuntu)
+- OCRmyPDF
+- inotify-tools
 
-These packages can be installed on Ubuntu with the following command:
+Install prerequisites on Ubuntu:
 
-```bash
+\```bash
 sudo apt-get -y install ocrmypdf inotify-tools
-```
+\```
 
 ## Setup
 
-1. Clone the repository:
+1. Clone the repository and move files:
 
-```bash
+\```bash
 git clone https://github.com/username/repo.git
-```
-
-2. Move `scanocr.sh` to `/usr/local/bin`:
-
-```bash
 sudo mv repo/scanocr.sh /usr/local/bin
-```
-
-3. Make the script executable:
-
-```bash
 sudo chmod +x /usr/local/bin/scanocr.sh
-```
-
-4. If you wish to run the script as a service, move the provided `scanocr.service` file to the systemd directory:
-
-```bash
 sudo mv repo/scanocr.service /etc/systemd/system/
-```
+\```
 
-5. Reload systemd manager configuration:
+2. Setup the service:
 
-```bash
+\```bash
 sudo systemctl daemon-reload
-```
-
-6. Enable the service to start on boot:
-
-```bash
 sudo systemctl enable scanocr.service
-```
-
-7. Start the service:
-
-```bash
 sudo systemctl start scanocr.service
-```
+\```
 
-## How It Works
+## Operation
 
-The script uses inotify-tools to monitor directories for the `close_write` event, which is triggered when a file has been closed, indicating that it's ready for processing.
+Monitors directories for new files, renaming with timestamp, performing OCR, moving to processed directory, and deleting the original.
 
-Upon detecting a new file, the script will:
+## Note on the Service File
 
-- Rename the file with the current timestamp.
-- Use OCRmyPDF to perform OCR on the file.
-- Move the processed file to a designated processed directory.
-- Delete the original file from the incoming directory.
-
-Note: In case of an error during the OCR process, the file will be left in the incoming directory, and an error message will be displayed.
+The service file contains the directive `OOMScoreAdjust=-1000`. This directive is used to prevent the Out of Memory (OOM) killer from targeting the `scanocr` service. This is particularly important when running the service in an LXC container with limited RAM (e.g., 500MB). If the system disk is fast, consider raising swap to 1GB to provide additional virtual memory and prevent OOM situations.
