@@ -16,13 +16,14 @@ sudo apt-get -y install ocrmypdf inotify-tools tesseract-ocr-deu
 
 ## Setup
 
-1. Clone the repository and move files:
+1. Clone the repository and copy files:
 
 ```bash
 git clone https://github.com/username/repo.git
-sudo mv repo/scanocr.sh /usr/local/bin
+cd scanocr
+sudo cp ./scanocr.sh /usr/local/bin
 sudo chmod +x /usr/local/bin/scanocr.sh
-sudo mv repo/scanocr.service /etc/systemd/system/
+sudo cp ./scanocr.service /etc/systemd/system/
 ```
 
 2. Setup the service:
