@@ -26,7 +26,9 @@ sudo chmod +x /usr/local/bin/scanocr.sh
 sudo cp ./scanocr.service /etc/systemd/system/
 ```
 
-2. Setup the service:
+2. Adjust the service file by adjusting file paths according to your needs
+
+3. Setup the service:
 
 ```bash
 sudo systemctl daemon-reload
