@@ -4,7 +4,7 @@ Description=Scan OCR Service
 [Service]
 OOMScoreAdjust=-1000
 Type=simple
-ExecStart=/usr/local/bin/scanocr.sh
+ExecStart=/path/to/scanocr.sh /path/to/watchdir /path/to/destdir
 
 [Install]
 WantedBy=multi-user.target
